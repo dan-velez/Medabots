@@ -4,6 +4,22 @@
 imports MedabotsGame
 
 public module Main
+    '' Utils '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    public sub setWindowSize()
+        ' Adjust the games window.
+        console.setWindowSize(1, 1)
+        console.setBufferSize(200, 200)
+        console.setWindowSize(200, 200)
+        ' console.setWindowPosition(0, 0)
+    end sub
+
+    public sub clearConsoleHistory()
+        ' Clears the terminal. Windows only for now.
+        ' System.Diagnostics.Process.Start("cls")
+        console.clear
+    end sub
+
     public sub printc(byval mesg as string, 
                       optional byval color as string="black")
         ' Shortcut to printing a colored string.
@@ -25,9 +41,11 @@ public module Main
         console.resetColor
     end sub
 
+    '' Main ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     public sub main()
         ' Load up the main game code and start it.
-        dim medabots as new MedabotsGame()
-        medabots.start()
+        setWindowSize
+        dim medabots as new MedabotsGame
+        medabots.start
     end sub
 end module

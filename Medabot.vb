@@ -28,10 +28,8 @@ public class Medabot
     protected dim legs as GameObject
     protected dim arm1 as GameObject
     protected dim arm2 as GameObject
+
+    ' Weapons.
     protected dim weaponMain as GameObject
     protected dim weaponSub as GameObject
-
-    protected sub loadFromFile(byval filePath as string)
-        ' Load medabots data from a JSON file.
-    end sub
 end class

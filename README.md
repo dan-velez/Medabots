@@ -11,6 +11,11 @@ Recreate medabots as a text console game. Similar to old galidor RPG.
 * Collect items
 * Modify stats
 
+## TODO ##
+* Player movement
+* Code hot swapper (file monitor, check compile error, reload)
+    * Changes in nested directories.
+
 ## Game Classes ##
 * Main
 * MedabotsGame
@@ -34,6 +39,8 @@ Recreate medabots as a text console game. Similar to old galidor RPG.
 ## Gameplay ##
 * Can start game through console, continue where left off.
 * Procedually generated, advancing level of difficulty.
+* Catch input, be able to move around level.
+* When command key is pressed, listen for command. Otherwise, continue gameLoop.
 ```
 
 ** Medabots v1.0.0 **

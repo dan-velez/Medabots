@@ -3,8 +3,9 @@
 
 imports MedabotsGame
 
-module Main
-    sub printc(byval mesg as string, optional byval color as string="black")
+public module Main
+    public sub printc(byval mesg as string, 
+                      optional byval color as string="black")
         ' Shortcut to printing a colored string.
         select case color.toUpper
             case "BLACK"
@@ -24,7 +25,7 @@ module Main
         console.resetColor
     end sub
 
-    sub main()
+    public sub main()
         ' Load up the main game code and start it.
         dim medabots as new MedabotsGame()
         medabots.start()

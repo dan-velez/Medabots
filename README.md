@@ -51,7 +51,7 @@ Recreate medabots as a text console game. Similar to old galidor RPG.
 |@                 |
 ====================
 
-medabots> Attack Right Main
+botConsole> Attack Right Main
 
 -----------------
 BotName

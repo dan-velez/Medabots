@@ -4,42 +4,57 @@
 imports System.Collections.Generic
 
 public class MedabotsGame
-    dim prompt as string = "medabots> "
-    dim logo as string = "** Medabots v1.0.0 **"
-    dim userInput as consoleKeyInfo
-    dim currentLevel as Level
-    ' dim player as Player
+    private dim prompt as string = "botConsole> "
+    private dim logo as string = "** Medabots v1.0.0 **"
+    private dim userInput as consoleKeyInfo
+    private dim currentLevel as Level
+    private dim user as User 
+    ' Need to reference user here and in level array.
+    private dim debugger as GameDebugger
 
-    sub loadGame()
-        ' Load state. Current level and player.
-        printc("(* Medabots) Loading game...")
-        me.currentLevel = new Level 
-    end sub
-
-    sub start()
+    public sub start()
         ' Game intro text, start first level.
         me.loadGame()
+        me.debugger = new GameDebugger(me)
         me.gameLoop()
     end sub
 
-    sub gameLoop()
+    private sub loadGame()
+        ' Load state. Load level and player.
+        ' TODO: Just create new level and player each time.
+        printc("(* Medabots) Loading game...")
+        me.currentLevel = new Level
+        me.user = new User
+    end sub
+
+    private sub gameLoop()
         ' Poll input from user.
         ' Each poll to the user for input is one game cycle.
+        console.cursorVisible = false
 
         while true
             console.clear
             console.writeLine(me.logo)
             console.writeLine("User Keypress: " & me.userInput.keyChar.toString)
+            console.writeLine("")
+            
             ' Render level.
-            console.writeLine("")
             me.currentLevel.render
-            ' Render prompt.
-            console.writeLine("")
-            console.write(prompt)
-            me.userInput = console.readKey
-        end while
-    end sub
 
-    sub testSub()
+            ' Render prompt.
+            console.write(prompt)
+            console.writeLine("")
+            console.writeLine("")
+
+            ' Render user bot's stats.
+            me.user.renderStats
+            console.writeLine("")
+
+            ' Render debug information.
+            me.debugger.render()
+
+            ' Handle user input.
+            me.userInput = console.readKey(false)
+        end while
     end sub
 end class

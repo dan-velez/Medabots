@@ -1,7 +1,7 @@
-class GameObject
-    property x as integer
-    property y as integer
+' An object in the gameworld. 
+' Holds the object's grid coordinates.
 
+public class GameObject
     public sub new()
         ' Spawn the GameObject in the level.
         console.writeline("(*) New GameObject.")

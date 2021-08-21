@@ -12,9 +12,9 @@ Recreate medabots as a text console game. Similar to old galidor RPG.
 * Modify stats
 
 ## TODO ##
+* Code hot swapper
+* Screen buffer size
 * Player movement
-* Code hot swapper (file monitor, check compile error, reload)
-    * Changes in nested directories.
 
 ## Game Classes ##
 * Main

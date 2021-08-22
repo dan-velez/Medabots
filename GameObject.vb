@@ -2,14 +2,27 @@
 ' A core TextGameEngine class.
 
 public class GameObject
-    protected x as integer
-    protected y as integer
+    public property x as integer
+    public property y as integer
 
-    public sub new()
+    '' Constructors ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    public sub new ()
         ' Default constructor.
+        me.x = 2
+        me.y = 2
     end sub
 
-    public sub new(byval _x as integer, byval _y as integer)
+    public sub new (byval _x as integer, byval _y as integer)
+        ' Spawn gameObject at a coord in game grid.
+        me.x = _x
+        me.y = _y
+    end sub
+
+    '' Set Position ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    public sub setPosition (byval _x as integer, byval _y as integer)
+        ' Shortcut to set this GameObject's location on the screen.
         me.x = _x
         me.y = _y
     end sub

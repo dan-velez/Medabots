@@ -3,44 +3,58 @@
 imports System.Collections.Generic
 
 public class MedabotsGame
+    public property USER as User
+    public property LEVEL as GameLevel
+    public property WMANAGER as WindowManager
+    public property GDEBUGGER as GameDebugger
+    ' public property MENU as GameMenu
+    ' public property PROMPT as GamePrompt
+
+    private logo as string = "** Medabots v1.0.0 **"
+    private prompt as string = "medabots> "
     private winWidth as integer = 100
     private winHeight as integer = 100
 
-    private  property userInput as consoleKeyInfo
-    public property userKey as string = ""
-
-    private property currentLevel as Level
-    private property user as User
-
-    private debugger as GameDebugger
-    private prompt as string = "botConsole> "
-    private logo as string = "** Medabots v1.0.0 **"
-
     '' Loading Routines ''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-    public sub start()
+    public sub init ()
         ' Load game, initialize main gameobjects.
-        me.currentLevel = new Level
-        me.user = new User
-        me.debugger = new GameDebugger(me)
-        vwmanager.setWindowSize(me.winWidth, me.winHeight)
-        me.gameLoop()
+        LEVEL = new GameLevel
+        USER = new User
+        GDEBUGGER = new GameDebugger(me)
+        WMANAGER = new WindowManager
+        
+        ' WMANAGER.setWindowSize(me.winWidth, me.winHeight)
+        ' me.gameLoop()
+    end sub
+
+    '' Game Loop '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    private sub gameLoop ()
+        ' Poll input from user.
+        ' Each poll to the user for input is one game cycle.
+        while true
+            WMANAGER.clearConsole
+            me.render
+            me.handleUserInput
+        end while
     end sub
 
     '' Render ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-    private sub render()
+    private sub render ()
         ' Render the main game screen with the user's bot.
 
         ' Render logo.
-        console.writeLine(me.logo)
+        console.writeLine("")
+        console.writeLine(" " & me.logo)
         console.writeLine("")
         
         ' Render level.
         me.currentLevel.render
 
         ' Render prompt.
-        console.write(prompt)
+        console.write(" " & prompt)
         console.writeLine("")
         console.writeLine("")
 
@@ -54,30 +68,25 @@ public class MedabotsGame
 
     '' User Input ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-    sub handleUserInput()
+    sub handleUserInput ()
         ' Can be cursor key or hotkey.
         ' Check if in command mode.
-        me.userInput = console.readKey(false)
-        me.userKey = me.userInput.keyChar.toString
+        dim userInput as consoleKeyInfo = console.readKey(false)
+        GDEBUGGER.lastKey = me.userInput.keyChar.toString
 
         ' User Movement.
-        if me.userInput.key = consoleKey.upArrow then me.userKey = "UP"
-        if me.userInput.key = consoleKey.downArrow then me.userKey = "DOWN" 
-        if me.userInput.key = consoleKey.leftArrow then me.userKey = "LEFT" 
-        if me.userInput.key = consoleKey.rightArrow then me.userKey = "RIGHT" 
-    end sub
-
-    '' Game Loop '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-    private sub gameLoop()
-        ' Poll input from user.
-        ' Each poll to the user for input is one game cycle.
-        console.cursorVisible = false
-
-        while true
-            vwmanager.clearConsole
-            me.render
-            me.handleUserInput
-        end while
+        if me.userInput.key = consoleKey.upArrow then 
+            userKey = "UP"
+            USER.move("UP")
+        elseif me.userInput.key = consoleKey.downArrow then 
+            userKey = "DOWN" 
+            USER.move("DOWN")
+        elseif me.userInput.key = consoleKey.leftArrow then 
+            me.userKey = "LEFT" 
+            USER.user.move("LEFT")
+        elseif me.userInput.key = consoleKey.rightArrow then 
+            me.userKey = "RIGHT" 
+            USER.user.move("RIGHT")
+        end if
     end sub
 end class

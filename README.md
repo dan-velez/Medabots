@@ -6,43 +6,21 @@ can exchange parts with the boss characters. Medabots implements a custom
 TextGameEngine.
 
 ## TODO ##
+* Collision check for player
+* Global gameObjects array
+* Level generator
+* Prompt object
+
 * Game Engine
-    * WindowManager (setWindowSize, setWindowPosition, clear)
-    * MedaBotsGame should subclass TextGame class
-    * Code hot swapper
-    * Game.Render
-        * Remove screen flicker
-        * Render line by line (Logo Level, Console, Stats, Debugger)
+    * MedaBotsGame subclass TextGame class
+    * CodeHotSwapper
 
 * Game Logic
     * Player movement
-    * Walls
-
-* Documentation
-    * Gameplay guide
-
-## Game Engine Core ##
-* Main
-* Game  -> gameLoop(), update(), render()
-* Level -> Level string, player
-* GameObject
-
-## Medabots Game Classes ##
-* MedabotsGame <> Game
-* Wall <> GameObject
-* Buff <> GameObject
-* EnergyRefill <> GameObject
-* Medabot <> GameObject
-* Player <> Medabot
-* GruntBot <> Medabot
-* Metabee <> Medabot
-* Rokusho <> Medabot
-* Sumilidon <> Medabot
-* BlackRam <> Medabot
-* KiloBot <> Medabot
-* WarBandit <> Medabot
 
 ## Game Architecture ##
+* `GAME`, `LEVEL`, `USER`, `WMANAGER`, `GDEBUGGER`, `MENU`, `PROMPT`
+
 `Main` module will have a `WindowManager` and `Game` class, which is all the 
 games code.
 `WindowManager` is publicly available for `Game` class to alter.
@@ -67,33 +45,31 @@ Level will have a game objects array which includes player.
 * When command key is pressed, listen for command. Otherwise, continue gameLoop.
 * Player can select their icon: [@ ]
 * Player can create **custom commands** that are shortcuts to actions.
+* Player can encounter with and talk with different medabots. Some medabots can
+  help the user and have special functions. Some are just there to battle.
+
 ```
-
 ** Medabots v1.0.0 **
-
+(HOME)
 ====================
-|                # |
-|                  |
-|                  |
-|                  |
-|                  |
-|                  |
-|                  |
-|                  |
+|    |           # |
+|    |             |
+|=====             |
+|       *          |
+|=======           |
+|      %           |
+|            ====  |
+|            +     |
 |                  |
 |@                 |
 ====================
 
-botConsole> Attack Right Main
+metabee> Help?
 
------------------
-BotName
------------------
+Stats
+-----
 HP    10    SPD  1
 ENG   10    
 ATK    1
 CRIT   1
-
-WMAIN bCannon
-WSUB  zSword
 ```

@@ -7,16 +7,21 @@ echo "(* Build) Compiling Medabots.exe..."
 `
 Main.vb `
 MedabotsGame.vb `
-Level.vb `
+GameLevel.vb `
 GameObject.vb `
 GameDebugger.vb `
 Medabot.vb `
 User.vb `
 WindowManager.vb `
-/out:Medabots.exe /nologo /nowarn
+`
+/out:Medabots.exe `
+`
+/nologo /nowarn
 
 echo "(* Build) Compilation done."
 
 # Run the game.
 # ./Medabots.exe
-invoke-expression 'cmd /c start powershell -Command { ./Medabots.exe }'
+
+# Run game in seperate window.
+# invoke-expression 'cmd /c start powershell -Command { ./Medabots.exe }'

@@ -1,13 +1,12 @@
 ' Load and run the game code. 
-' Main module also contains global utility routines.
+' Also contains global utility routines.
 
 public module Main
-    private vmedabots as MedabotsGame
-    public vwmanager as WindowManager 
+    public GAME as MedabotsGame
 
     '' Global Utils ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-    public sub printc(byval vmesg as string, 
+    public sub printColored (byval vmesg as string, 
                       optional byval vcolor as string="black")
         ' Shortcut to printing a colored string.
         select case vcolor.toUpper
@@ -29,15 +28,16 @@ public module Main
     end sub
 
     '' Main ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    public sub main()
+
+    public sub main ()
         ' Load up the main game code and start it.
         try
-            vwmanager = new WindowManager 
-            vmedabots = new MedabotsGame
-            vmedabots.start
+            GAME = new MedabotsGame
+            GAME.init
         catch e as Exception
             console.writeLine("ERROR:")
             console.writeLine(e.message)
+            ' TODO: Dump game state and game objects array!
             console.writeLine("Press any key to continue...")
             console.readKey
         end try

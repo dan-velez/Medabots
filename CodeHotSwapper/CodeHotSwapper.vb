@@ -2,7 +2,7 @@
 ' BUG: Need to spawn in background focus
 ' TODO: Log changed file info
 ' TODO: Changes in nested directory
-' TODO: Recompile
+' TODO: Recompile -> USE shell("powershell <FNAME>")
 
 
 imports System.IO

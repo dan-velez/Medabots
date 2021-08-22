@@ -1,6 +1,7 @@
 # Medabots #
 Create a text-based console game using VB to learn about .NET development.
-Can recreate digimon, medabots.
+Can recreate digimon, medabots. Create a text game engine and API, then use it
+to code custom game logic.
 
 ## About ##
 Recreate medabots as a text console game. Similar to old galidor RPG.
@@ -12,18 +13,27 @@ Recreate medabots as a text console game. Similar to old galidor RPG.
 * Modify stats
 
 ## TODO ##
-* Code hot swapper
-* Screen buffer size
-* Player movement
+* Game Engine
+    * Code hot swapper
+    * WindowManager (set window size, clear)
+    * Remove screen flicker
+* Game Logic
+    * Player movement
+    * Walls
 
-## Game Classes ##
+## Game Engine Core ##
 * Main
-* MedabotsGame
+* Game  -> gameLoop(), update(), render()
+* Level
 * GameObject
 
+## Medabots Game Classes ##
+* MedabotsGame <> Game
+* Wall <> GameObject
+* Buff <> GameObject
+* EnergyRefill <> GameObject
 * Medabot <> GameObject
 * Player <> Medabot
-
 * GruntBot <> Medabot
 * Metabee <> Medabot
 * Rokusho <> Medabot
@@ -32,6 +42,7 @@ Recreate medabots as a text console game. Similar to old galidor RPG.
 * KiloBot <> Medabot
 * WarBandit <> Medabot
 
+## User Medabot Customization ##
 * Can create medabots from JSON file. Power level must not exceed certain amount
 * Use arrow keys to move ; hot keys ; input commands
 * Compile and code own characters using medabots API. 

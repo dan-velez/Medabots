@@ -8,9 +8,9 @@ public module Main
 
     public sub setWindowSize()
         ' Adjust the games window.
-        console.setWindowSize(1, 1)
-        console.setBufferSize(200, 200)
-        console.setWindowSize(200, 200)
+        ' console.setWindowSize(1, 1)
+        ' console.setBufferSize(200, 200)
+        ' console.setWindowSize(200, 200)
         ' console.setWindowPosition(0, 0)
     end sub
 

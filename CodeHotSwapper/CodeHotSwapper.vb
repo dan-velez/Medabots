@@ -9,6 +9,8 @@ imports System.IO
 imports System.Diagnostics
 
 module Main
+     Declare Function SetForegroundWindow Lib "user32.dll" (ByVal hwnd As Integer) As Integer 
+
     private watchFolder as FileSystemWatcher
     private promptString as string = "codeHotSwapper>"
 
@@ -16,12 +18,14 @@ module Main
     private changes as integer = 0
 
     ' The process to swap when code or file is changed.
-    private swapProcessPath as string = "..\Medabots.exe"
+    private swapProcessPath as string = Path.GetFullPath("..\Medabots.exe")
+    private  swapProcessBuildScript as string = Path.GetFullPath("..\Build.ps1")
     private swapProcess as Process
-    
+
     '' Main FileWatcher ''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     sub main()
+        console.writeLine(swapProcessBuildScript)
         ' Parse CLI args.
         dim clArgs() as string = Environment.GetCommandLineArgs
         dim dirPath as string = Path.GetFullPath(clArgs(1))
@@ -42,14 +46,15 @@ module Main
         ' Start watching.
         watchfolder.EnableRaisingEvents = true
 
-        ' Start game here. Restart process on changes.
+        ' Start game here. Restart program on changes.
         swapProcess = System.Diagnostics.Process.Start(swapProcessPath)
 
         ' Start infinite loop for swapper.
-        dim vexit as string = ""
-        while vexit.tolower <> "exit"
+        dim vcommand as string = ""
+        while vcommand.tolower <> "exit"
             console.write("codeHotSwapper> ")
-            vexit = console.readline
+            vcommand = console.readline
+            if vcommand.toUpper = "SWAP" then restartProcess
         end while
         printm(promptString & " Exit hot swapper.")
     end sub
@@ -76,12 +81,27 @@ module Main
 
     sub restartProcess()
         ' Code or resource has changed. Stop process and start again.
-        swapProcess.kill()
-        swapProcess = System.Diagnostics.Process.Start(swapProcessPath)
-        ' shell(swapProcessPath)
+        try
+            swapProcess.kill()
+        catch e as exception
+        end try
 
-        dim myWindowHandler = Process.GetCurrentProcess().MainWindowHandle
-        SetForegroundWindow(myWindowHandler)
+        swapProcess = System.Diagnostics.Process.Start(swapProcessPath)
+        ' SwitchToThisWindow(ideProc.mainWindowHandle, true)
+        ' dim ideProc = Process.GetCurrentProcess().MainWindowHandle
+        dim ideProc = Process.GetProcessesByName("Code").FirstOrDefault.MainWindowHandle
+        SetForegroundWindow(ideProc)
+
+        ' Restart game, dont focus.
+        ' shell(swapProcessPath, AppWinStyle.NormalFocus)
+        ' swapProcess = System.Diagnostics.Process.Start(swapProcessBuildScript)
+
+        ' Change dir to build script.
+        ' Compile in shell mode.
+        
+        ' shell("cd ..\ ; " & swapProcessBuildScript)
+        ' swapProcess = System.Diagnostics.Process.Start(swapProcessPath)
+        ' shell(swapProcessPath)
 
     end sub
 

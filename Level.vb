@@ -3,7 +3,7 @@
 imports System.Collections.Generic
 
 public class Level
-    protected Dim levelString As String = "" & environment.newLine & _
+    protected Dim levelString As String = _
     "============================" & environment.newLine & _
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
@@ -14,7 +14,7 @@ public class Level
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
-    "| @                        |" & environment.newLine & _
+    "|                          |" & environment.newLine & _
     "============================" & environment.newLine
 
     protected dim objects as List(Of GameObject)

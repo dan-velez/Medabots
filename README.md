@@ -1,30 +1,30 @@
 # Medabots #
-Create a text-based console game using VB to learn about .NET development.
-Can recreate digimon, medabots. Create a text game engine and API, then use it
-to code custom game logic.
-
-## About ##
-Recreate medabots as a text console game. Similar to old galidor RPG.
-* Simple text based game.
-* Player is medabot, walk through dungeon
-* Encounter enemies
-* Collect parts
-* Collect items
-* Modify stats
+Medabots is a ext based console RPG game. User can move through procedurally 
+generated levels and upgrade and modify their character as they move through the
+game levels. Gameplay will be loosly based on old Medabots games where the user
+can exchange parts with the boss characters. Medabots implements a custom 
+TextGameEngine.
 
 ## TODO ##
 * Game Engine
+    * WindowManager (setWindowSize, setWindowPosition, clear)
+    * MedaBotsGame should subclass TextGame class
     * Code hot swapper
-    * WindowManager (set window size, clear)
-    * Remove screen flicker
+    * Game.Render
+        * Remove screen flicker
+        * Render line by line (Logo Level, Console, Stats, Debugger)
+
 * Game Logic
     * Player movement
     * Walls
 
+* Documentation
+    * Gameplay guide
+
 ## Game Engine Core ##
 * Main
 * Game  -> gameLoop(), update(), render()
-* Level
+* Level -> Level string, player
 * GameObject
 
 ## Medabots Game Classes ##
@@ -42,6 +42,19 @@ Recreate medabots as a text console game. Similar to old galidor RPG.
 * KiloBot <> Medabot
 * WarBandit <> Medabot
 
+## Game Architecture ##
+`Main` module will have a `WindowManager` and `Game` class, which is all the 
+games code.
+`WindowManager` is publicly available for `Game` class to alter.
+`Game` class will adjust the window through `WindowManager`.
+`Game` class will inherit `render` and `update` routines to implement custom 
+ game code.
+
+Render method will draw the level and player.
+Update method will deal with user input.
+
+Level will have a game objects array which includes player.
+
 ## User Medabot Customization ##
 * Can create medabots from JSON file. Power level must not exceed certain amount
 * Use arrow keys to move ; hot keys ; input commands
@@ -52,6 +65,8 @@ Recreate medabots as a text console game. Similar to old galidor RPG.
 * Procedually generated, advancing level of difficulty.
 * Catch input, be able to move around level.
 * When command key is pressed, listen for command. Otherwise, continue gameLoop.
+* Player can select their icon: [@ ]
+* Player can create **custom commands** that are shortcuts to actions.
 ```
 
 ** Medabots v1.0.0 **

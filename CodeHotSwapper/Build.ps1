@@ -4,9 +4,9 @@ cls
 echo ("(* Build) Compiling CodeHotSwapper.exe...")
 &$env:vbc `
 CodeHotSwapper.vb `
-/out:CodeHotSwapper.exe `
+/out:CodeHotSwapper1.1.exe `
 /nowarn /nologo
 echo ("(* Build) Compilation done. CodeHotSwapper.exe is ready.")
 echo("")
 
-./CodeHotSwapper.exe ../ .
+./CodeHotSwapper1.1.exe ../ .

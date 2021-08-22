@@ -25,8 +25,7 @@ public class Level
 
     public sub render()
         ' Output the level string to the console.
-        ' console.writeLine(me.levelString.length)
-        ' Parse objects into level string.
+        ' Interpolate gameObjects into the level string.
         console.writeLine(me.levelString)
     end sub
 end class

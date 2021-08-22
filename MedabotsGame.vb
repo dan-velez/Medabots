@@ -1,13 +1,17 @@
-' Holds gameloop and all major game objects.
-' Use this class to initialize and run the game.
+' Main game code. Holds gameloop and all major game objects.
 
 imports System.Collections.Generic
 
 public class MedabotsGame
+    private winWidth as integer = 100
+    private winHeight as integer = 100
+
     private  property userInput as consoleKeyInfo
     public property userKey as string = ""
+
     private property currentLevel as Level
     private property user as User
+
     private debugger as GameDebugger
     private prompt as string = "botConsole> "
     private logo as string = "** Medabots v1.0.0 **"
@@ -15,23 +19,17 @@ public class MedabotsGame
     '' Loading Routines ''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     public sub start()
-        ' Game intro text, start first level.
-        me.loadGame()
-        me.debugger = new GameDebugger(me)
-        me.gameLoop()
-    end sub
-
-    private sub loadGame()
-        ' Load state. Load level and player.
-        ' TODO: Just create new level and player each time.
-        printc("(* Medabots) Loading game...")
+        ' Load game, initialize main gameobjects.
         me.currentLevel = new Level
         me.user = new User
+        me.debugger = new GameDebugger(me)
+        vwmanager.setWindowSize(me.winWidth, me.winHeight)
+        me.gameLoop()
     end sub
 
     '' Render ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-    private sub renderGameScreen()
+    private sub render()
         ' Render the main game screen with the user's bot.
 
         ' Render logo.
@@ -77,8 +75,8 @@ public class MedabotsGame
         console.cursorVisible = false
 
         while true
-            clearConsoleHistory
-            me.renderGameScreen
+            vwmanager.clearConsole
+            me.render
             me.handleUserInput
         end while
     end sub

@@ -7,9 +7,19 @@
 
 imports System.IO
 imports System.Diagnostics
+imports System.Runtime.InteropServices
 
 module Main
-     Declare Function SetForegroundWindow Lib "user32.dll" (ByVal hwnd As Integer) As Integer 
+    ' <DllImport("user32.dll")>
+    ' Function FindWindow(ByVal strclassName As String, ByVal strWindowName As String) As Integer
+    ' End Function
+
+    '  Declare Function SetForegroundWindow Lib "user32.dll" _
+    '                   (ByVal hwnd As Integer) As Integer 
+
+    ' Declare Sub SwitchToThisWindow Lib "user32.dll" ( _
+    '     hWnd As IntPtr, fAltTab As Boolean)
+
 
     private watchFolder as FileSystemWatcher
     private promptString as string = "codeHotSwapper>"
@@ -18,8 +28,9 @@ module Main
     private changes as integer = 0
 
     ' The process to swap when code or file is changed.
+    private swapProcessDirPath as string
     private swapProcessPath as string = Path.GetFullPath("..\Medabots.exe")
-    private  swapProcessBuildScript as string = Path.GetFullPath("..\Build.ps1")
+    private swapProcessBuildScript as string = Path.GetFullPath("..\Build.ps1")
     private swapProcess as Process
 
     '' Main FileWatcher ''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -28,14 +39,15 @@ module Main
         console.writeLine(swapProcessBuildScript)
         ' Parse CLI args.
         dim clArgs() as string = Environment.GetCommandLineArgs
-        dim dirPath as string = Path.GetFullPath(clArgs(1))
+        swapProcessDirPath = Path.GetFullPath(clArgs(1))
 
         ' Log info.
-        console.writeLine("(*) Watching folder: " & dirPath & environment.newLine)
+        console.writeLine("(*) Watching folder: " & _
+                          swapProcessDirPath & environment.newLine)
 
         ' Init watchDog.
         watchfolder = New System.IO.FileSystemWatcher()
-        watchFolder.path = dirPath
+        watchFolder.path = swapProcessDirPath
 
         ' Register file event listeners.
         AddHandler watchfolder.Changed, AddressOf logchange
@@ -47,16 +59,19 @@ module Main
         watchfolder.EnableRaisingEvents = true
 
         ' Start game here. Restart program on changes.
-        swapProcess = System.Diagnostics.Process.Start(swapProcessPath)
+        swapProcess = new Process
+        swapProcess.startInfo = new ProcessStartInfo(swapProcessPath)
+        ' swapProcess.startInfo.WindowStyle = ProcessWindowStyle.Minimized
+        swapProcess.start
 
         ' Start infinite loop for swapper.
-        dim vcommand as string = ""
-        while vcommand.tolower <> "exit"
-            console.write("codeHotSwapper> ")
-            vcommand = console.readline
-            if vcommand.toUpper = "SWAP" then restartProcess
-        end while
-        printm(promptString & " Exit hot swapper.")
+        ' dim vcommand as string = ""
+        ' while vcommand.tolower <> "exit"
+        '     console.write("codeHotSwapper> ")
+        '     vcommand = console.readline
+        '     if vcommand.toUpper = "SWAP" then restartProcess
+        ' end while
+        ' printm(promptString & " Exit hot swapper.")
     end sub
 
     '' Events ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -84,25 +99,32 @@ module Main
         try
             swapProcess.kill()
         catch e as exception
+            ' Process was previously closed by user.
         end try
 
-        swapProcess = System.Diagnostics.Process.Start(swapProcessPath)
-        ' SwitchToThisWindow(ideProc.mainWindowHandle, true)
-        ' dim ideProc = Process.GetCurrentProcess().MainWindowHandle
-        dim ideProc = Process.GetProcessesByName("Code").FirstOrDefault.MainWindowHandle
-        SetForegroundWindow(ideProc)
+        ' Recompile program.
+        FileSystem.chdir(swapProcessDirPath)
+        console.writeLine(FileSystem.CurDir)
+        for each s as string in directory.getFiles(FileSystem.CurDir)
+            console.writeLine("(*) File: " & s)
+        next
 
-        ' Restart game, dont focus.
-        ' shell(swapProcessPath, AppWinStyle.NormalFocus)
-        ' swapProcess = System.Diagnostics.Process.Start(swapProcessBuildScript)
+        ' dim pid = Interaction.Shell("Build.ps1", false, -1)
 
-        ' Change dir to build script.
-        ' Compile in shell mode.
+        ' Start the new, recompiled program.
+        swapProcess.start()
         
-        ' shell("cd ..\ ; " & swapProcessBuildScript)
-        ' swapProcess = System.Diagnostics.Process.Start(swapProcessPath)
-        ' shell(swapProcessPath)
+        ' Threading.Thread.Sleep(3000)
+        ' Dim theHandle As IntPtr
+        ' theHandle = FindWindow(Nothing, 
+        ' "CodeHotSwapper.vb - Medabots - Visual Studio Code")
+        ' SetForegroundWindow(theHandle)
 
+        ' dim ideProc = Process.GetCurrentProcess().MainWindowHandle
+        ' SwitchToThisWindow(ideProc, true)
+        ' dim ideProc = Process.GetProcessesByName("Code").FirstOrDefault
+        '    .MainWindowHandle
+        ' SetForegroundWindow(ideProc)
     end sub
 
     '' Utils '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

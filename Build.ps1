@@ -12,10 +12,11 @@ GameObject.vb `
 GameDebugger.vb `
 Medabot.vb `
 User.vb `
-`
+WindowManager.vb `
 /out:Medabots.exe /nologo /nowarn
 
 echo "(* Build) Compilation done."
 
 # Run the game.
 # ./Medabots.exe
+invoke-expression 'cmd /c start powershell -Command { ./Medabots.exe }'

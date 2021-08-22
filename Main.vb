@@ -1,29 +1,16 @@
 ' Load and run the game code. 
-' Main module also houses some utilities.
-
-imports MedabotsGame
+' Main module also contains global utility routines.
 
 public module Main
-    '' Utils '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    private vmedabots as MedabotsGame
+    public vwmanager as WindowManager 
 
-    public sub setWindowSize()
-        ' Adjust the games window.
-        ' console.setWindowSize(1, 1)
-        ' console.setBufferSize(200, 200)
-        ' console.setWindowSize(200, 200)
-        ' console.setWindowPosition(0, 0)
-    end sub
+    '' Global Utils ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-    public sub clearConsoleHistory()
-        ' Clears the terminal. Windows only for now.
-        ' System.Diagnostics.Process.Start("cls")
-        console.clear
-    end sub
-
-    public sub printc(byval mesg as string, 
-                      optional byval color as string="black")
+    public sub printc(byval vmesg as string, 
+                      optional byval vcolor as string="black")
         ' Shortcut to printing a colored string.
-        select case color.toUpper
+        select case vcolor.toUpper
             case "BLACK"
                 console.foregroundColor = consoleColor.black
             case "WHITE"
@@ -37,15 +24,22 @@ public module Main
             case "GREEN"
                 console.foregroundColor = consoleColor.green
         end select
-        console.writeLine(mesg)
+        console.writeLine(vmesg)
         console.resetColor
     end sub
 
     '' Main ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     public sub main()
         ' Load up the main game code and start it.
-        setWindowSize
-        dim medabots as new MedabotsGame
-        medabots.start
+        try
+            vwmanager = new WindowManager 
+            vmedabots = new MedabotsGame
+            vmedabots.start
+        catch e as Exception
+            console.writeLine("ERROR:")
+            console.writeLine(e.message)
+            console.writeLine("Press any key to continue...")
+            console.readKey
+        end try
     end sub
 end module

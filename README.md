@@ -1,4 +1,6 @@
 # Medabots #
+![Medabots](Medabots.gif)
+
 Medabots is a text based console RPG game. User can move through procedurally 
 generated levels to upgrade and modify their character. Gameplay will be loosly 
 based on old Medabots games where the user can exchange parts with other 
@@ -44,28 +46,38 @@ Level will have a game objects array which includes player.
 * Player can encounter with and talk with different medabots. Some medabots can
   help the user and have special functions. Some are just there to battle.
 
+## Screenshots ##
+
+Example screen showing user stats and debugger:
 ```
-** Medabots v1.0.0 **
-(HOME)
-====================
-|    |           # |
-|    |             |
-|=====             |
-|       *          |
-|=======           |
-|      %           |
-|            ====  |
-|            +     |
-|                  |
-|@                 |
-====================
+Medabots v1.0.0
 
-metabee> Help?
+(Home)
+============================
+|                          |
+|@                |        |
+|                 |        |
+|======           |        |
+|      |          =========|
+|      |                   |
+|      |                   |
+|       ======      |      |
+|                   |      |
+|                   |      |
+============================
 
-Stats
------
-HP    10    SPD  1
-ENG   10    
-ATK    1
-CRIT   1
+Medabot00>
+
+User Stats
+----------
+HP: 10
+Attack: 1
+Speed: 1
+
+________________________________
+DEBUGGER
+--------
+User Keypress:
+User X:                        2        
+User Y:                        2
 ```

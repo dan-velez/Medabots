@@ -11,16 +11,16 @@ public class GameLevel
 
     protected Dim levelString As String = _
     "============================" & environment.newLine & _
-    "|@                         |" & environment.newLine & _
     "|                          |" & environment.newLine & _
-    "|                          |" & environment.newLine & _
-    "|                          |" & environment.newLine & _
-    "|                          |" & environment.newLine & _
-    "|                          |" & environment.newLine & _
-    "|                          |" & environment.newLine & _
-    "|                          |" & environment.newLine & _
-    "|                          |" & environment.newLine & _
-    "|                          |" & environment.newLine & _
+    "|                 |        |" & environment.newLine & _
+    "|                 |        |" & environment.newLine & _
+    "|======           |        |" & environment.newLine & _
+    "|      |          =========|" & environment.newLine & _
+    "|      |                   |" & environment.newLine & _
+    "|      |                   |" & environment.newLine & _
+    "|       ======      |      |" & environment.newLine & _
+    "|                   |      |" & environment.newLine & _
+    "|                   |      |" & environment.newLine & _
     "============================" & environment.newLine
 
     ' List of all objects in the current level.

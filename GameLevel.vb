@@ -16,7 +16,7 @@ public class GameLevel
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
-    "|                          |" & environment.newLine & _
+    "|            @             |" & environment.newLine & _
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
@@ -25,16 +25,46 @@ public class GameLevel
 
     ' List of all objects in the current level.
     protected property gameObjects as List(Of GameObject)
+    public property name as string = "Home"
+    ' public readonly property types as Dictionary(Of string, GameObject)
 
-    '' Constructors ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    '' Generate Objects ''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-    public sub new ()
-        ' Generate objects based on LevelString. Add to array.
+    public sub genObjects ()
+        ' Generate objects based on icons in the LevelString.
         me.gameObjects = new List(Of GameObject)
-        ' for each char
-        ' type = legend[char]
-        ' if type is XGO.add(new GO(x, y)
-        ' if type is User(GO.add(GAME.USER)), USER.setPosition
+        
+        ' Variables used to generate gameObjects.
+        dim vlevelLines() as string = me.levelString.split(chr(13))
+        dim vnewLines as new List(Of string)
+        dim x as integer = 0, y as integer = 0
+
+        ' Loop through lines. Generate Gameobjects and replace with blank.
+        ' Then render function will replace the objects as they move.
+        for each vline as string in vlevelLines
+            ' newLine will be eventually just be walls.
+            dim vnewLine as string = vline
+            x = 0
+            for each vchar as char in vline
+                x += 1
+                ' User icon.
+                if vchar = "@" then
+                    me.gameObjects.add(GAME.USER)
+                    GAME.USER.setPosition(x, y)
+                    vnewline = me.subchar(vline, " ", x)
+
+                ' Rokusho icon.
+                else if vchar = "#"
+                    me.gameObjects.add(new Medabot)
+                end if
+            next
+            vnewLines.add(vnewLine)
+            y += 1
+        next
+        
+        ' New level lines is just the levels with walls. GameObject are created
+        ' with their coordinates and stored in GameObjects list.
+        me.levelString = join(vnewLines.toArray, chr(13).toString)
     end sub 
 
     '' Utils '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -53,7 +83,7 @@ public class GameLevel
     public function subchar (byval srepl as string,
                             byval vchar as string, 
                             byval pos as integer) as string
-        ' Replace a character in level with another. Useful for rendering
+        ' Replace a character in string by position. Useful for rendering
         ' gameobject icons.
         dim vres as string = srepl.substring(0, pos) & _
                              vchar & _
@@ -69,7 +99,9 @@ public class GameLevel
         ' TODO: Loop through me.gameObjects array.
 
         ' Render USER.
-        vlevelLines(USER.y) = subchar(vlevelLines(USER.y), user.icon, USER.x)
+        vlevelLines(GAME.USER.y) = subchar(vlevelLines(GAME.USER.y), 
+                                           GAME.user.icon, GAME.USER.x)
+        console.writeLine("(" & me.name & ")")
         console.writeLine(join(vlevelLines, chr(13).toString))
     end sub
 end class

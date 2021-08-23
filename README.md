@@ -1,25 +1,22 @@
 # Medabots #
-Medabots is a ext based console RPG game. User can move through procedurally 
-generated levels and upgrade and modify their character as they move through the
-game levels. Gameplay will be loosly based on old Medabots games where the user
-can exchange parts with the boss characters. Medabots implements a custom 
-TextGameEngine.
+Medabots is a text based console RPG game. User can move through procedurally 
+generated levels to upgrade and modify their character. Gameplay will be loosly 
+based on old Medabots games where the user can exchange parts with other 
+Medabots that they defeat in battle. Medabots implements a custom 
+TextGameEngine API. There are no dependancies to compile this game other than 
+the base .NET namespace, `System`.
 
 ## TODO ##
-* Collision check for player
-* Global gameObjects array
-* Level generator
+* GAME.LEVEL.GObjects array from GAME.LEVEL.new()
+* Render to retrieve strings from objects.
 * Prompt object
 
-* Game Engine
-    * MedaBotsGame subclass TextGame class
-    * CodeHotSwapper
-
-* Game Logic
-    * Player movement
+* Window setBufferSize bug
+* CodeHotSwapper
 
 ## Game Architecture ##
-* `GAME`, `LEVEL`, `USER`, `WMANAGER`, `GDEBUGGER`, `MENU`, `PROMPT`
+* **Core Game Engine Components**:
+    * `GAME`, `LEVEL`, `USER`, `WMANAGER`, `GDEBUGGER`, `MENU`, `PROMPT`
 
 `Main` module will have a `WindowManager` and `Game` class, which is all the 
 games code.

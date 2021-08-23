@@ -4,6 +4,7 @@
 public class GameObject
     public property x as integer
     public property y as integer
+    public overridable property icon as string
 
     '' Constructors ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 

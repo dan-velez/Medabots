@@ -2,8 +2,11 @@
 ' Use the global Console object to deal with window attributes.
 
 public class WindowManager
+    ' Position of console on screen.
     private xpos as integer 
-    private ypos as integer 
+    private ypos as integer
+
+    ' Width and height in COLUMNS and ROWS of text.
     private width as integer
     private height as integer
 
@@ -24,7 +27,8 @@ public class WindowManager
         ' TODO: Uses default values for now.
         me.width = w
         me.height = h
-        console.setWindowSize(40, 30)
+        ' Set Columns, Rows
+        console.setWindowSize(40, 32)
         console.bufferWidth = console.windowWidth
         console.bufferHeight = console.windowHeight
     end sub

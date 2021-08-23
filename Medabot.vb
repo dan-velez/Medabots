@@ -1,22 +1,17 @@
 ' Medabot object. Contains stats and items for a medabot.
+' Medabots are found throughout game world and can be interacted with.
+' They can have special functions and battle with the user.
 
 public class Medabot
     inherits GameObject
 
     ' Medabot name.
-    protected dim name as string = "MyMedabot"
-
-    ' Which direction player is facing.
-    protected dim direction as string = "N"
+    public overridable property name as string
 
     ' Stats.
     protected dim hp as integer = 10
     protected dim attack as integer = 1
-    protected dim jump as integer = 1
-    protected dim dodge as integer = 1
     protected dim speed as integer = 1
-    protected dim maxAmmo as integer = 5
-    protected dim ammo as integer = me.maxAmmo
 
     ' Collections.
     protected dim buffs() as GameObject
@@ -32,4 +27,6 @@ public class Medabot
     ' Weapons.
     protected dim weaponMain as GameObject
     protected dim weaponSub as GameObject
+    protected dim maxAmmo as integer = 5
+    protected dim ammo as integer = me.maxAmmo
 end class

@@ -2,6 +2,9 @@
 ' Also contains global utility routines.
 
 public module Main
+    ' Expose global namespace GAME object.
+    ' GAME contains all core game engine components.
+    ' GAME will act as a global API for game functions.
     public GAME as MedabotsGame
 
     '' Global Utils ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -37,6 +40,7 @@ public module Main
         catch e as Exception
             console.writeLine("ERROR:")
             console.writeLine(e.message)
+            console.writeLine(e.stackTrace)
             ' TODO: Dump game state and game objects array!
             console.writeLine("Press any key to continue...")
             console.readKey

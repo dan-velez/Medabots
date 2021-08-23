@@ -10,22 +10,22 @@ public class MedabotsGame
     ' public property MENU as GameMenu
     ' public property PROMPT as GamePrompt
 
-    private logo as string = "** Medabots v1.0.0 **"
-    private prompt as string = "medabots> "
+    private logo as string = "Medabots v1.0.0"
     private winWidth as integer = 100
     private winHeight as integer = 100
 
     '' Loading Routines ''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     public sub init ()
-        ' Load game, initialize main gameobjects.
-        LEVEL = new GameLevel
+        ' Initalize core game engine components.
         USER = new User
-        GDEBUGGER = new GameDebugger(me)
+        LEVEL = new GameLevel
+        GDEBUGGER = new GameDebugger
         WMANAGER = new WindowManager
         
-        ' WMANAGER.setWindowSize(me.winWidth, me.winHeight)
-        ' me.gameLoop()
+        WMANAGER.setWindowSize(me.winWidth, me.winHeight)
+        LEVEL.genObjects
+        me.gameLoop()
     end sub
 
     '' Game Loop '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -47,46 +47,50 @@ public class MedabotsGame
 
         ' Render logo.
         console.writeLine("")
-        console.writeLine(" " & me.logo)
+        console.writeLine(me.logo)
         console.writeLine("")
         
         ' Render level.
-        me.currentLevel.render
+        LEVEL.render
 
         ' Render prompt.
-        console.write(" " & prompt)
+        console.write(USER.name & "> ")
         console.writeLine("")
         console.writeLine("")
 
         ' Render user bot's stats.
-        me.user.renderStats
+        USER.renderStats
         console.writeLine("")
 
         ' Render debug information.
-        me.debugger.render()
+        GDEBUGGER.render()
+        console.writeLine("")
     end sub
 
     '' User Input ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     sub handleUserInput ()
-        ' Can be cursor key or hotkey.
-        ' Check if in command mode.
+        ' Get input from user. Update debugger with input information.
+        ' Can be cursor key or hotkey. Check if game is in command mode.
         dim userInput as consoleKeyInfo = console.readKey(false)
-        GDEBUGGER.lastKey = me.userInput.keyChar.toString
+        dim userKey as string = ""
 
         ' User Movement.
-        if me.userInput.key = consoleKey.upArrow then 
+        if userInput.key = consoleKey.upArrow then 
             userKey = "UP"
             USER.move("UP")
-        elseif me.userInput.key = consoleKey.downArrow then 
+        elseif userInput.key = consoleKey.downArrow then 
             userKey = "DOWN" 
             USER.move("DOWN")
-        elseif me.userInput.key = consoleKey.leftArrow then 
-            me.userKey = "LEFT" 
-            USER.user.move("LEFT")
-        elseif me.userInput.key = consoleKey.rightArrow then 
-            me.userKey = "RIGHT" 
-            USER.user.move("RIGHT")
+        elseif userInput.key = consoleKey.leftArrow then 
+            userKey = "LEFT" 
+            USER.move("LEFT")
+        elseif userInput.key = consoleKey.rightArrow then 
+            userKey = "RIGHT" 
+            USER.move("RIGHT")
         end if
+        
+        ' Update debugger with semantic key info.
+        GDEBUGGER.lastKey = userKey
     end sub
 end class

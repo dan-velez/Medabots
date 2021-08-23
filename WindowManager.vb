@@ -12,7 +12,9 @@ public class WindowManager
 
     public sub new ()
         ' Initialize window settings for console game.
+        ' Load window settings from disk (w, h, x, y, color).
         console.cursorVisible = false
+        ' console.backgroundColor = consoleColor.black
     end sub
 
     public sub setWindowPosition (byval x as integer, byval y as integer)
@@ -28,6 +30,7 @@ public class WindowManager
         me.width = w
         me.height = h
         ' Set Columns, Rows
+        ' TODO: Set buffer to bigger, then set the window size.
         console.setWindowSize(40, 32)
         console.bufferWidth = console.windowWidth
         console.bufferHeight = console.windowHeight

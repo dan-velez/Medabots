@@ -37,6 +37,8 @@ public module Main
         try
             GAME = new MedabotsGame
             GAME.init
+            console.writeLine("Medabots exiting.")
+            console.resetColor
         catch e as Exception
             console.writeLine("ERROR:")
             console.writeLine(e.message)

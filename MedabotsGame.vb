@@ -7,7 +7,7 @@ public class MedabotsGame
     public property LEVEL as GameLevel
     public property WMANAGER as WindowManager
     public property GDEBUGGER as GameDebugger
-    ' public property MENU as GameMenu
+    public property MENU as GameMenu
     ' public property PROMPT as GamePrompt
 
     private logo as string = "Medabots v1.0.0"
@@ -20,11 +20,13 @@ public class MedabotsGame
         ' Initalize core game engine components.
         USER = new User
         LEVEL = new GameLevel
+        MENU = new GameMenu
         GDEBUGGER = new GameDebugger
         WMANAGER = new WindowManager
-        
+
         WMANAGER.setWindowSize(me.winWidth, me.winHeight)
         LEVEL.genObjects
+
         me.gameLoop()
     end sub
 
@@ -58,8 +60,8 @@ public class MedabotsGame
         console.writeLine("")
         console.writeLine("")
 
-        ' Render user bot's stats.
-        USER.renderStats
+        ' Render user menu.
+        MENU.render
         console.writeLine("")
 
         ' Render debug information.
@@ -73,7 +75,7 @@ public class MedabotsGame
         ' Get input from user. Update debugger with input information.
         ' Can be cursor key or hotkey. Check if game is in command mode.
         dim userInput as consoleKeyInfo = console.readKey(false)
-        dim userKey as string = ""
+        dim userKey as string = userInput.key.toString.toUpper
 
         ' User Movement.
         if userInput.key = consoleKey.upArrow then 
@@ -90,6 +92,13 @@ public class MedabotsGame
             USER.move("RIGHT")
         end if
         
+        ' Menu switch hotkey.
+        if userKey = "M" then 
+            MENU.nextMenu
+        elseif userKey = "N" then 
+            MENU.previousMenu
+        end if
+
         ' Update debugger with semantic key info.
         GDEBUGGER.lastKey = userKey
     end sub

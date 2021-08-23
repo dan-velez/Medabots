@@ -13,6 +13,7 @@ GameDebugger.vb `
 Medabot.vb `
 User.vb `
 WindowManager.vb `
+GameMenu.vb `
 `
 /out:Medabots.exe `
 `

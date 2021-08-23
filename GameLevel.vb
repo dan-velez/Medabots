@@ -11,12 +11,12 @@ public class GameLevel
 
     protected Dim levelString As String = _
     "============================" & environment.newLine & _
+    "|@                         |" & environment.newLine & _
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
-    "|            @             |" & environment.newLine & _
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
     "|                          |" & environment.newLine & _
@@ -24,7 +24,7 @@ public class GameLevel
     "============================" & environment.newLine
 
     ' List of all objects in the current level.
-    protected property gameObjects as List(Of GameObject)
+    public property gameObjects as List(Of GameObject)
     public property name as string = "Home"
     ' public readonly property types as Dictionary(Of string, GameObject)
 
@@ -45,18 +45,20 @@ public class GameLevel
             ' newLine will be eventually just be walls.
             dim vnewLine as string = vline
             x = 0
+
             for each vchar as char in vline
-                x += 1
                 ' User icon.
                 if vchar = "@" then
+                    GAME.GDEBUGGER.log("Found user at: " & x.toString)
                     me.gameObjects.add(GAME.USER)
                     GAME.USER.setPosition(x, y)
                     vnewline = me.subchar(vline, " ", x)
 
                 ' Rokusho icon.
                 else if vchar = "#"
-                    me.gameObjects.add(new Medabot)
+                    me.gameObjects.add(new Medabot(x, y))
                 end if
+                x += 1
             next
             vnewLines.add(vnewLine)
             y += 1

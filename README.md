@@ -7,12 +7,11 @@ TextGameEngine API. There are no dependancies to compile this game other than
 the base .NET namespace, `System`.
 
 ## TODO ##
-* GAME.LEVEL.GObjects array from GAME.LEVEL.new()
 * Render to retrieve strings from objects.
+* GamMenu object -> Hook to hotkey
 * Prompt object
-
-* Window setBufferSize bug
-* CodeHotSwapper
+* Weapon classes, other medabot classes.
+* Code until can create different medabot classes.
 
 ## Game Architecture ##
 * **Core Game Engine Components**:

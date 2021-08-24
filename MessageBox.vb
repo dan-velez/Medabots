@@ -25,6 +25,7 @@ public class MessageBox
         me.addMessage("Welcome to medabots!")
         me.addMessage("You are in level ("& GAME.LEVEL.name &")")
         me.addMessage("Your medabot " & GAME.USER.name & " is ready to battle.")
+        me.addMessage("Press M and N to cycle through medabots menus.")
     end sub
 
     '' Render ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -37,8 +38,9 @@ public class MessageBox
         
         ' Render last message with different icon.
         dim i as integer = 0
-        for each mesg as string() in me.messages
-            if i = me.messages.count - 1 then
+        dim buffer = messages.skip(messages.count - messageBufferSize)
+        for each mesg as string() in buffer
+            if i = buffer.count - 1 then
                 res += "> " & mesg(0)
             else
                 res += "* " & mesg(0)

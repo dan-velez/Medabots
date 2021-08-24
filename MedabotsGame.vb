@@ -9,7 +9,9 @@ public class MedabotsGame
     public property GDEBUGGER as GameDebugger
     public property MENU as GameMenu
     public property MESSAGEBOX as MessageBox
-    ' public property PROMPT as GamePrompt
+
+    public property inputMode as string = "Explore"
+    public property cycles as integer = 0
 
     public title as string = "Medabots"
     private winWidth as integer = 64
@@ -38,9 +40,12 @@ public class MedabotsGame
         ' Poll input from user.
         ' Each poll to the user for input is one game cycle.
         while true
-            WMANAGER.clearConsole
+            me.WMANAGER.clearConsole
             me.render
+            ' Update all gameObjects.
+            me.LEVEL.update
             me.handleUserInput
+            me.cycles += 1
         end while
     end sub
 
@@ -107,5 +112,15 @@ public class MedabotsGame
 
         ' Update debugger with semantic key info.
         GDEBUGGER.lastKey = userKey
+    end sub
+
+    '' Input Modes '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    sub initBattle (byref mbot as Medabot)
+        ' Initiate the battle state between user and other medabot.
+    end sub
+
+    sub exitBattle ()
+        ' Reset game state to explore.
     end sub
 end class

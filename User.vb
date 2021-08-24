@@ -19,4 +19,19 @@ public class User
         me.weaponMain = new GameObject
         me.weaponSub = new GameObject
     end sub
+
+    '' Move ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    
+    public overrides sub move (byval vdir as string)
+        select case vdir.toUpper
+            case "UP"
+                if not GAME.LEVEL.isWall(me.x, me.y-1) then me.y -= 1
+            case "DOWN"
+                if not GAME.LEVEL.isWall(me.x, me.y+1) then me.y +=1
+            case "LEFT"
+                if not GAME.LEVEL.isWall(me.x-1, me.y) then me.x -= 1
+            case "RIGHT"
+                if not GAME.LEVEL.isWall(me.x+1, me.y) then me.x += 1
+        end select
+    end sub
 end class

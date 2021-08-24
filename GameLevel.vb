@@ -12,11 +12,11 @@ public class GameLevel
     protected Dim levelString As String = _
     "============================" & environment.newLine & _
     "|                          |" & environment.newLine & _
-    "|                 |        |" & environment.newLine & _
+    "|              #  |        |" & environment.newLine & _
     "|                 |        |" & environment.newLine & _
     "|======           |        |" & environment.newLine & _
     "|      |          =========|" & environment.newLine & _
-    "|      |                   |" & environment.newLine & _
+    "|      |     @             |" & environment.newLine & _
     "|      |                   |" & environment.newLine & _
     "|       ======      |      |" & environment.newLine & _
     "|                   |      |" & environment.newLine & _
@@ -56,8 +56,10 @@ public class GameLevel
 
                 ' Rokusho icon.
                 else if vchar = "#"
-                    me.gameObjects.add(new Medabot(x, y))
+                    me.gameObjects.add(new Rokusho(x, y))
                 end if
+
+                ' Process next character.
                 x += 1
             next
             vnewLines.add(vnewLine)
@@ -69,7 +71,12 @@ public class GameLevel
         me.levelString = join(vnewLines.toArray, chr(13).toString)
     end sub 
 
-    '' Utils '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    '' Collisions ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    public function collideWith (byval x as integer, 
+                                 byval y as integer) as GameObject
+        return new GameObject
+    end function
 
     public function isWall (byval x as integer, byval y as integer) as boolean
         ' Determine if this coordinate is a wall or not.
@@ -82,6 +89,8 @@ public class GameLevel
         end if 
     end function
 
+    '' Utils '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    
     public function subchar (byval srepl as string,
                             byval vchar as string, 
                             byval pos as integer) as string
@@ -107,8 +116,12 @@ public class GameLevel
         console.writeLine(join(vlevelLines, chr(13).toString))
     end sub
 
-    '' Random Generation '''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    ' max number walls
-    ' default wall pieces
+    '' Update ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+    public sub update ()
+        ' Run every gameObject's update method.
+        for each go as GameObject in me.gameObjects
+            go.update
+        next
+    end sub
 end class

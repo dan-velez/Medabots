@@ -15,6 +15,7 @@ User.vb `
 WindowManager.vb `
 GameMenu.vb `
 MessageBox.vb `
+Rokusho.vb `
 `
 /out:Medabots.exe `
 `

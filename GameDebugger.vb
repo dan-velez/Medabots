@@ -44,10 +44,18 @@ public class GameDebugger
         console.write("User Keypress: ".padRight(me.csize)) 
         console.write(me.lastKey.padLeft(me.csize))
         console.writeLine("")
+
+        ' User coordinates.
         console.write("User X:".padRight(me.csize))
         console.write(GAME.USER.x.toString.padLeft(me.csize))
         console.writeLine("")
         console.write("User Y:".padRight(me.csize))
         console.write(GAME.USER.y.toString.padLeft(me.csize))
+        console.writeLine("")
+
+        ' Game cycles..
+        console.write("Cycles: ".padRight(me.csize)) 
+        console.write(GAME.cycles.toString.padLeft(me.csize))
+        console.writeLine("")
     end sub
 end class

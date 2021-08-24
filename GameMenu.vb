@@ -80,6 +80,7 @@ public class GameMenu
         console.writeLine(me.renderSeperator)
         console.writeLine("Name: " & GAME.USER.weaponMain.toString)
         console.writeLine("Damage: 0" )
+        console.writeLine("Crit %: 0" )
     end sub
 
     public sub renderUserSubWeapon ()
@@ -89,5 +90,6 @@ public class GameMenu
         console.writeLine(me.renderSeperator)
         console.writeLine("Name: " & GAME.USER.weaponSub.toString)
         console.writeLine("Damage: 0" )
+        console.writeLine("Crit %: 0" )
     end sub
 end class

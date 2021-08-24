@@ -46,7 +46,7 @@ public class Medabot
 
     '' Move ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     
-    public sub move (byval vdir as string)
+    public overridable sub move (byval vdir as string)
         select case vdir.toUpper
             case "UP"
                 if not GAME.LEVEL.isWall(me.x, me.y-1) then me.y -= 1

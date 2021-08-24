@@ -20,6 +20,12 @@ public class GameObject
         me.y = _y
     end sub
 
+    '' Update ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    
+    public overridable sub update ()
+        ' run this method once every game cycle for all gameObjects in level.
+    end sub 
+
     '' Set Position ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     public sub setPosition (byval _x as integer, byval _y as integer)

@@ -103,7 +103,12 @@ public class GameLevel
         ' Render USER.
         vlevelLines(GAME.USER.y) = subchar(vlevelLines(GAME.USER.y), 
                                            GAME.user.icon, GAME.USER.x)
-        console.writeLine("(" & me.name & ")")
+        ' console.writeLine("(" & me.name & ")")
         console.writeLine(join(vlevelLines, chr(13).toString))
     end sub
+
+    '' Random Generation '''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    ' max number walls
+    ' default wall pieces
+
 end class

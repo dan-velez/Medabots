@@ -14,6 +14,7 @@ Medabot.vb `
 User.vb `
 WindowManager.vb `
 GameMenu.vb `
+MessageBox.vb `
 `
 /out:Medabots.exe `
 `

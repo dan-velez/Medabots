@@ -7,13 +7,16 @@ public class WindowManager
     private ypos as integer
 
     ' Width and height in COLUMNS and ROWS of text.
-    private width as integer
-    private height as integer
+    public property width as integer
+    public property height as integer
 
-    public sub new ()
+    public sub new (byval w as integer, byval h as integer)
         ' Initialize window settings for console game.
         ' Load window settings from disk (w, h, x, y, color).
+        me.width = w
+        me.height = h
         console.cursorVisible = false
+        console.title = GAME.title
         ' console.backgroundColor = consoleColor.black
     end sub
 
@@ -24,14 +27,16 @@ public class WindowManager
         console.setWindowPosition(x, y)
     end sub
 
-    public sub setWindowSize (byval w as integer, byval h as integer)
+    public sub setWindowSize (optional byval w as integer = 40, 
+                              optional byval h as integer = 32)
         ' Adjust the games window.
+        ' Default: 32, 40
         ' TODO: Uses default values for now.
         me.width = w
         me.height = h
         ' Set Columns, Rows
         ' TODO: Set buffer to bigger, then set the window size.
-        console.setWindowSize(40, 32)
+        console.setWindowSize(w, h)
         console.bufferWidth = console.windowWidth
         console.bufferHeight = console.windowHeight
     end sub

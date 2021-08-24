@@ -8,11 +8,12 @@ public class MedabotsGame
     public property WMANAGER as WindowManager
     public property GDEBUGGER as GameDebugger
     public property MENU as GameMenu
+    public property MESSAGEBOX as MessageBox
     ' public property PROMPT as GamePrompt
 
-    private logo as string = "Medabots v1.0.0"
-    private winWidth as integer = 100
-    private winHeight as integer = 100
+    public title as string = "Medabots"
+    private winWidth as integer = 64
+    private winHeight as integer = 40   
 
     '' Loading Routines ''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -21,8 +22,9 @@ public class MedabotsGame
         USER = new User
         LEVEL = new GameLevel
         MENU = new GameMenu
+        WMANAGER = new WindowManager(winWidth, winHeight)
+        MESSAGEBOX = new MessageBox
         GDEBUGGER = new GameDebugger
-        WMANAGER = new WindowManager
 
         WMANAGER.setWindowSize(me.winWidth, me.winHeight)
         LEVEL.genObjects
@@ -49,15 +51,19 @@ public class MedabotsGame
 
         ' Render logo.
         console.writeLine("")
-        console.writeLine(me.logo)
-        console.writeLine("")
+        ' console.writeLine(me.title & " - " & me.LEVEL.name)
+        console.writeLine("(" & me.LEVEL.name & ")")
         
         ' Render level.
         LEVEL.render
 
         ' Render prompt.
-        console.write(USER.name & "> ")
-        console.writeLine("")
+        ' console.write(USER.name & "> ")
+        ' console.writeLine("")
+        ' console.writeLine("")
+
+        ' Render game messages box.
+        MESSAGEBOX.render
         console.writeLine("")
 
         ' Render user menu.

@@ -50,9 +50,7 @@ Level will have a game objects array which includes player.
 
 Example screen showing user stats and debugger:
 ```
-Medabots v1.0.0
-
-(Home)
+Medabots - Home
 ============================
 |                          |
 |@                |        |
@@ -66,18 +64,81 @@ Medabots v1.0.0
 |                   |      |
 ============================
 
-Medabot00>
+Medabot00> Show weapons
 
 User Stats
 ----------
 HP: 10
 Attack: 1
 Speed: 1
-
-________________________________
-DEBUGGER
---------
-User Keypress:
-User X:                        2        
-User Y:                        2
 ```
+
+
+Player Message Box:
+```
+Medabots - MB_Tournament
+============================
+|                          |
+|@ #              |        |
+|                 |        |
+|======        !  |        |
+|      |          =========|
+|      |                   |
+|      |               $   |
+|       ======      |      |
+|             +     |      |
+|                   |      |
+============================
+
+Medabot00> Run custom commands
+
+Messages
+--------
+* You encounterd a medabot.
+* You picked up an item.
+* You ran into a wall.
+* Command not found.
+> Rokusho wants to battle!
+
+User Stats
+------------------------
+HP: 10        Speed:   1
+Attack: 1     EXP:     0
+```
+
+
+## Battle Mode ## : 
+* Like pokemon 
+* Cannot exit / move / change menu until done.
+* Enemy will have radius where you must encounter them.
+
+```
+Medabots - MB_Tournament
+============================
+|                          |
+|@ #              |        |
+|                 |        |
+|======        !  |        |
+|      |          =========|
+|      |                   |
+|      |               $   |
+|       ======      |      |
+|             +     |      |
+|                   |      |
+============================
+
+Messages
+--------------------------------
+* You picked up an item.
+* You encounterd a medabot.
+* You picked up weapon 'zcannon'.
+* Rokusho wants to battle!
+> You are now battling Rokusho.
+--------------------------------
+
+Battle
+------------------------
+Attack *       Status
+Run            Item
+------------------------
+``` 

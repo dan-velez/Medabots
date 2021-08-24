@@ -7,6 +7,7 @@ public class GameDebugger
     private csize as integer = 16
     public property lastKey as string = ""
     private logFilePath as string = "Medabots.log"
+    public property cycles as integer = 0
 
     '' Constructors ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     
@@ -37,7 +38,7 @@ public class GameDebugger
     public sub render ()
         ' Render stats to console.
         console.writeLine("DEBUGGER")
-        console.writeLine("--------")
+        console.writeLine("".padRight(GAME.WMANAGER.width, "-"))
         
         ' Last key pressed.
         console.write("User Keypress: ".padRight(me.csize)) 

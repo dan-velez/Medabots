@@ -33,6 +33,10 @@ public class GameMenu
         end if
     end sub
 
+    function renderSeperator () as string
+        return "".padRight(GAME.WMANAGER.width, "-")
+    end function
+
     '' Menu Switching ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     public sub nextMenu ()
@@ -63,7 +67,7 @@ public class GameMenu
         ' Render user stats menu.
         dim title as string = "User Stats"
         console.writeLine(title)
-        console.writeLine("".padRight(title.length, "-"c))
+        console.writeLine(me.renderSeperator)
         console.writeLine("HP: " & GAME.USER.hp)
         console.writeLine("Attack: " & GAME.USER.attack)
         console.writeLine("Speed: " & GAME.USER.speed)
@@ -73,15 +77,17 @@ public class GameMenu
         ' Show stats of users weapons.
         dim title as string = "Main Weapon"
         console.writeLine(title)
-        console.writeLine("".padRight(title.length, "-"c))
+        console.writeLine(me.renderSeperator)
         console.writeLine("Name: " & GAME.USER.weaponMain.toString)
+        console.writeLine("Damage: 0" )
     end sub
 
     public sub renderUserSubWeapon ()
         ' Show stats of users weapons.
         dim title as string = "Sub Weapon"
         console.writeLine(title)
-        console.writeLine("".padRight(title.length, "-"c))
+        console.writeLine(me.renderSeperator)
         console.writeLine("Name: " & GAME.USER.weaponSub.toString)
+        console.writeLine("Damage: 0" )
     end sub
 end class

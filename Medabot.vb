@@ -9,12 +9,14 @@ public class Medabot
 
     ' Medabot name.
     public overridable property name as string
+    public overridable property icon as string = "#" 
 
     ' Stats.
     public hp as integer = 10
     public attack as integer = 1
     public speed as integer = 1
     public level as integer = 0 
+    public zenny as double = 0.0
 
     ' Collections.
     public augments() as GameObject
@@ -41,12 +43,20 @@ public class Medabot
 
     public sub new (byval _x as integer, byval _y as integer)
         ' Spawn gameObject at a coord in game grid.
-        myBase.new(_x, _y)
+        myBase.new("Medabot", _x, _y)
     end sub
 
     '' Move ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     
-    public overridable sub move (byval vdir as string)
+    public overridable sub move (byval x as integer, byval y as integer)
+        ' Override this in user class.
+    end sub
+
+    public sub moveOld (byval vdir as string)
+        ' Check if collides with a game object. If it does, bring up interaction
+        ' menu and set inputMode to interaction.
+        GAME.MESSAGEBOX.addMessage(GAME.USER.name & " moved " & vdir & ".")
+
         select case vdir.toUpper
             case "UP"
                 if not GAME.LEVEL.isWall(me.x, me.y-1) then me.y -= 1

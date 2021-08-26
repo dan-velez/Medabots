@@ -49,7 +49,6 @@ public class GameLevel
             for each vchar as char in vline
                 ' User icon.
                 if vchar = "@" then
-                    GAME.GDEBUGGER.log("Found user at: " & x.toString)
                     me.gameObjects.add(GAME.USER)
                     GAME.USER.setPosition(x, y)
                     vnewline = me.subchar(vline, " ", x)
@@ -57,6 +56,7 @@ public class GameLevel
                 ' Rokusho icon.
                 else if vchar = "#"
                     me.gameObjects.add(new Rokusho(x, y))
+                    vnewline = me.subchar(vline, " ", x)
                 end if
 
                 ' Process next character.
@@ -73,15 +73,44 @@ public class GameLevel
 
     '' Collisions ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-    public function collideWith (byval x as integer, 
+    public function checkCollision (byval x as integer, 
                                  byval y as integer) as GameObject
-        return new GameObject
+        ' Check if a space is occupied by a GameObject.
+        for each go as GameObject in me.gameObjects
+            if go.x = x and go.y = y then return go
+        next
+        return nothing
+    end function
+
+    public function surroundingObjects (byval x as integer, 
+                                        byval y as integer) _ 
+                                        as List(of GameObject)
+        ' Returns list of GameObjects surrouding this coordinate.
+        dim results = new List(of GameObject)
+        
+        ' Check around object and add in what is found.
+        dim vtop as GameObject =  checkCollision(x, y-1)
+        if not vtop is nothing then results.add(vtop)
+
+        dim vbot as GameObject =  checkCollision(x, y+1)
+        if not vbot is nothing then results.add(vbot)
+
+        dim vleft as GameObject =  checkCollision(x-1, y)
+        if not vleft is nothing then results.add(vleft)
+
+        dim vright as GameObject =  checkCollision(x-1, y)
+        if not vright is nothing then results.add(vright)
+
+        ' Return list of objects surrounding coordinate.
+        return results
     end function
 
     public function isWall (byval x as integer, byval y as integer) as boolean
         ' Determine if this coordinate is a wall or not.
         dim vlevelLines() as string = me.levelString.split(chr(13))
         dim vchar as char = vlevelLines(y)(x)
+
+        ' Use wall icons to determine if this is a wall.
         if (vchar = "|"c or vchar = "="c) then
             return true
         else 
@@ -107,12 +136,15 @@ public class GameLevel
     public sub render ()
         ' Interpolate gameObjects into the level string and output to console.
         dim vlevelLines() as string = me.levelString.split(chr(13))
-        ' TODO: Loop through me.gameObjects array.
+        
+        ' Loop through me.gameObjects array and interpolate it into level.
+        for each go in me.GameObjects
+            ' TODO: Need to downcast objects to their respective types.
+            GAME.GDEBUGGER.log("(* LEVEL) Render: "& go.name &" ["& go.icon &"]")
+            vlevelLines(go.y) = subchar(vlevelLines(go.y), go.icon, go.x)
+        next
 
-        ' Render USER.
-        vlevelLines(GAME.USER.y) = subchar(vlevelLines(GAME.USER.y), 
-                                           GAME.user.icon, GAME.USER.x)
-        ' console.writeLine("(" & me.name & ")")
+        ' Render interpolated level with GameObject icons.
         console.writeLine(join(vlevelLines, chr(13).toString))
     end sub
 

@@ -4,8 +4,9 @@
 public class GameObject
     public property x as integer
     public property y as integer
-    public overridable property icon as string
-
+    public overridable property name as string = "GO"
+    public overridable property icon as string = "O"
+    public overridable property type as string = "GameObject"
     '' Constructors ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     public sub new ()
@@ -16,6 +17,15 @@ public class GameObject
 
     public sub new (byval _x as integer, byval _y as integer)
         ' Spawn gameObject at a coord in game grid.
+        me.type = "GameObject"
+        me.x = _x
+        me.y = _y
+    end sub
+
+    public sub new (byval type as string, byval _x as integer, 
+                    byval _y as integer)
+        ' Spawn gameObject at a coord in game grid.
+        me.type = type
         me.x = _x
         me.y = _y
     end sub

@@ -10,15 +10,16 @@ imports System.Diagnostics
 imports System.Runtime.InteropServices
 
 module Main
-    ' <DllImport("user32.dll")>
-    ' Function FindWindow(ByVal strclassName As String, ByVal strWindowName As String) As Integer
-    ' End Function
+    <DllImport("user32.dll")>
+    Function FindWindow(ByVal strclassName As String, 
+                        ByVal strWindowName As String) As Integer
+    End Function
 
-    '  Declare Function SetForegroundWindow Lib "user32.dll" _
-    '                   (ByVal hwnd As Integer) As Integer 
+     Declare Function SetForegroundWindow Lib "user32.dll" _
+                      (ByVal hwnd As Integer) As Integer 
 
-    ' Declare Sub SwitchToThisWindow Lib "user32.dll" ( _
-    '     hWnd As IntPtr, fAltTab As Boolean)
+    Declare Sub SwitchToThisWindow Lib "user32.dll" ( _
+        hWnd As IntPtr, fAltTab As Boolean)
 
 
     private watchFolder as FileSystemWatcher
@@ -65,12 +66,12 @@ module Main
         swapProcess.start
 
         ' Start infinite loop for swapper.
-        ' dim vcommand as string = ""
-        ' while vcommand.tolower <> "exit"
-        '     console.write("codeHotSwapper> ")
-        '     vcommand = console.readline
-        '     if vcommand.toUpper = "SWAP" then restartProcess
-        ' end while
+        dim vcommand as string = ""
+        while vcommand.tolower <> "exit"
+            console.write("codeHotSwapper> ")
+            vcommand = console.readline
+            if vcommand.toUpper = "SWAP" then restartProcess
+        end while
         ' printm(promptString & " Exit hot swapper.")
     end sub
 
@@ -103,11 +104,11 @@ module Main
         end try
 
         ' Recompile program.
-        FileSystem.chdir(swapProcessDirPath)
-        console.writeLine(FileSystem.CurDir)
-        for each s as string in directory.getFiles(FileSystem.CurDir)
-            console.writeLine("(*) File: " & s)
-        next
+        ' FileSystem.chdir(swapProcessDirPath)
+        ' console.writeLine(FileSystem.CurDir)
+        ' for each s as string in directory.getFiles(FileSystem.CurDir)
+        '     console.writeLine("(*) File: " & s)
+        ' next
 
         ' dim pid = Interaction.Shell("Build.ps1", false, -1)
 
@@ -117,11 +118,11 @@ module Main
         ' Threading.Thread.Sleep(3000)
         ' Dim theHandle As IntPtr
         ' theHandle = FindWindow(Nothing, 
-        ' "CodeHotSwapper.vb - Medabots - Visual Studio Code")
+        ' "CodeHotSwapper.vb - CodeHotSwapper - Visual Studio Code")
         ' SetForegroundWindow(theHandle)
 
-        ' dim ideProc = Process.GetCurrentProcess().MainWindowHandle
-        ' SwitchToThisWindow(ideProc, true)
+        dim ideProc = Process.GetCurrentProcess().MainWindowHandle
+        SwitchToThisWindow(ideProc, true)
         ' dim ideProc = Process.GetProcessesByName("Code").FirstOrDefault
         '    .MainWindowHandle
         ' SetForegroundWindow(ideProc)

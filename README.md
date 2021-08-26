@@ -9,12 +9,11 @@ TextGameEngine API. There are no dependancies to compile this game other than
 the base .NET namespace, `System`.
 
 ## TODO ##
-* Design the game to be extensible:
-  * Extendable interactions with gameObjects (chests, gardens, weapons)
-
-* Finish coding UI
-* Render to retrieve strings from objects.
-* Weapon classes, other medabot classes.
+* **Downcasting** when rendering gameObjects.
+* Render with StringBuilder.
+* Press A to interact
+* User settings (keybindings)
+* Save and load by serialize and deserialize with enc. key
 
 ## Game Architecture ##
 * **Core Game Engine Components**:
@@ -40,44 +39,18 @@ Level will have a game objects array which includes player.
 ## Gameplay ##
 * Can start game through console, continue where left off.
 * Procedually generated, advancing level of difficulty.
-* Catch input, be able to move around level.
-* When command key is pressed, listen for command. Otherwise, continue gameLoop.
-* Player can select their icon: [@ ]
-* Player can create **custom commands** that are shortcuts to actions.
 * Player can encounter with and talk with different medabots. Some medabots can
   help the user and have special functions. Some are just there to battle.
+* On player defeat, drop random part or weapon
+* ATTACK ITEM RUN
+  * ATTACK -> special, main weapon, sub weapon, melee
+  * Each has ammo.
 
 ## Screenshots ##
 
-Example screen showing user stats and debugger:
-```
-Medabots - Home
-============================
-|                          |
-|@                |        |
-|                 |        |
-|======           |        |
-|      |          =========|
-|      |                   |
-|      |                   |
-|       ======      |      |
-|                   |      |
-|                   |      |
-============================
-
-Medabot00> Show weapons
-
-User Stats
-----------
-HP: 10
-Attack: 1
-Speed: 1
-```
-
-
 Player Message Box:
 ```
-Medabots - MB_Tournament
+MB_Tournament
 ============================
 |                          |
 |@ #              |        |
@@ -91,10 +64,8 @@ Medabots - MB_Tournament
 |                   |      |
 ============================
 
-Medabot00> Run custom commands
-
 Messages
---------
+----------------------------------------------------------------
 * You encounterd a medabot.
 * You picked up an item.
 * You ran into a wall.
@@ -102,44 +73,38 @@ Messages
 > Rokusho wants to battle!
 
 User Stats
-------------------------
+----------------------------------------------------------------
 HP: 10        Speed:   1
 Attack: 1     EXP:     0
 ```
 
 
 ## Battle Mode ## : 
-* Like pokemon 
-* Cannot exit / move / change menu until done.
-* Enemy will have radius where you must encounter them.
-
 ```
-Medabots - MB_Tournament
-============================
-|                          |
-|@ #              |        |
-|                 |        |
-|======        !  |        |
-|      |          =========|
-|      |                   |
-|      |               $   |
-|       ======      |      |
-|             +     |      |
-|                   |      |
-============================
+(MB_Tournament)
+ =============================================
+|                                             |
+|@ #              |                           |
+|                 |                           |
+|======        !  |                           |
+|      |          =========                   |
+|      |                                      |
+|      |               $                      |
+|       ======      |                         |
+|             +     |                         |
+|                   |                         |
+ =============================================
 
 Messages
---------------------------------
+----------------------------------------------------------------
 * You picked up an item.
 * You encounterd a medabot.
 * You picked up weapon 'zcannon'.
 * Rokusho wants to battle!
 > You are now battling Rokusho.
---------------------------------
 
 Battle
-------------------------
+----------------------------------------------------------------
 Attack *       Status
 Run            Item
-------------------------
 ``` 

@@ -3,6 +3,7 @@
 imports System.Collections.Generic
 
 public class MedabotsGame
+    ' Core GameObjects.
     public property USER as User
     public property LEVEL as GameLevel
     public property WMANAGER as WindowManager
@@ -10,18 +11,24 @@ public class MedabotsGame
     public property MENU as GameMenu
     public property MESSAGEBOX as MessageBox
 
-    public property inputMode as string = "Explore"
-    public property cycles as integer = 0
-
+    ' Window properties.
     public title as string = "Medabots"
     private winWidth as integer = 64
-    private winHeight as integer = 40   
+    private winHeight as integer = 40
+
+    ' Input.
+    public property inputMode as string = "Explore" '| Interact | Convo | Battle
+    public property primaryKey as string = "A"
+    public property secondaryKey as string = "B"
+
+    ' Other properties.
+    public property cycles as integer = 0
 
     '' Loading Routines ''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     public sub init ()
         ' Initalize core game engine components.
-        USER = new User
+        USER = new User(2, 2)
         LEVEL = new GameLevel
         MENU = new GameMenu
         WMANAGER = new WindowManager(winWidth, winHeight)
@@ -29,8 +36,13 @@ public class MedabotsGame
         GDEBUGGER = new GameDebugger
 
         WMANAGER.setWindowSize(me.winWidth, me.winHeight)
+
+        ' Generate the level
         LEVEL.genObjects
 
+        ' Clear console initially.
+        console.setCursorPosition(0, 0)
+        console.clear
         me.gameLoop()
     end sub
 
@@ -40,7 +52,7 @@ public class MedabotsGame
         ' Poll input from user.
         ' Each poll to the user for input is one game cycle.
         while true
-            me.WMANAGER.clearConsole
+            me.WMANAGER.clearConsoleAll
             me.render
             ' Update all gameObjects.
             me.LEVEL.update
@@ -53,6 +65,9 @@ public class MedabotsGame
 
     private sub render ()
         ' Render the main game screen with the user's bot.
+        ' Collect the items render() results into one string and
+        ' render with stringBuilder for best performance.
+        dim gameString as string = ""
 
         ' Render logo.
         console.writeLine("")
@@ -61,11 +76,6 @@ public class MedabotsGame
         
         ' Render level.
         LEVEL.render
-
-        ' Render prompt.
-        ' console.write(USER.name & "> ")
-        ' console.writeLine("")
-        ' console.writeLine("")
 
         ' Render game messages box.
         MESSAGEBOX.render
@@ -91,18 +101,29 @@ public class MedabotsGame
         ' User Movement.
         if userInput.key = consoleKey.upArrow then 
             userKey = "UP"
-            USER.move("UP")
+            USER.move(0, -1)
         elseif userInput.key = consoleKey.downArrow then 
             userKey = "DOWN" 
-            USER.move("DOWN")
+            USER.move(0, 1)
         elseif userInput.key = consoleKey.leftArrow then 
             userKey = "LEFT" 
-            USER.move("LEFT")
+            USER.move(-1, 0)
         elseif userInput.key = consoleKey.rightArrow then 
             userKey = "RIGHT" 
-            USER.move("RIGHT")
+            USER.move(1, 0)
         end if
-        
+
+        ' Interaction with a GameObject.
+        dim vsurroundings as List(of GameObject) = _
+            LEVEL.surroundingObjects(USER.x, USER.y)
+        if userKey = "A" then
+            ' Interact with first surrounding object.
+            if vsurroundings(0).type.toUpper = "MEDABOT" then
+                ' Interact with Medabot.
+                user.interactWith(vsurroundings(0))
+            end if
+        end if
+
         ' Menu switch hotkey.
         if userKey = "M" then 
             MENU.nextMenu

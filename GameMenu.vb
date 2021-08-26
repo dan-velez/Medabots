@@ -6,6 +6,7 @@ imports System.Collections.Generic
 
 public class GameMenu
     private menuOrder as List(of string)
+    private columnSize as integer = 16
     public property currentMenu as string
 
     '' Constructors ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -30,6 +31,8 @@ public class GameMenu
             me.renderUserMainWeapon
         else if me.currentMenu = "SUBWEAPON" then
             me.renderUserSubWeapon
+        else if me.currentMenu = "INTERACTION_GO" then
+            me.renderInteractionGO
         end if
     end sub
 
@@ -91,5 +94,14 @@ public class GameMenu
         console.writeLine("Name: " & GAME.USER.weaponSub.toString)
         console.writeLine("Damage: 0" )
         console.writeLine("Crit %: 0" )
+    end sub
+
+    public sub renderInteractionGO ()
+        ' Basic interaction menu.
+        dim title as string = "Interact"
+        console.write("Talk".padRight(columnSize, " "))
+        console.write("Battle".padLeft(columnSize, " "))
+        console.write("Trade".padRight(columnSize, " "))
+        console.write("Goodbye".padLeft(columnSize, " "))
     end sub
 end class

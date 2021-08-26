@@ -1,0 +1,14 @@
+{
+    "keys": {
+        "up": "UP",
+        "down": "DOWN",
+        "left": "LEFT",
+        "right": "RIGHT",
+
+        "interact": "O",
+        "cancel": "P",
+
+        "nextMenu": "M",
+        "prevMenu": "N"
+    }
+}

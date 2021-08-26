@@ -7,6 +7,7 @@ class Rokusho
 
     public sub new (byval x as integer, byval y as integer)
         mybase.new(x, y)
+        me.name = "Rokusho"
     end sub
 
     '' Update ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
